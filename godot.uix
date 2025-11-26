@@ -1,0 +1,22 @@
+#!/usr/bin/env uix-shell
+with (import <nixpkgs> { });
+mkShell {
+  packages = [
+    pkgs.godot_4
+    dotnetCorePackages.sdk_8_0-bin
+    (vscode-with-extensions.override {
+      vscodeExtensions = with vscode-extensions; [
+        vscode-extensions.ms-dotnettools.csharp
+        vscode-extensions.ms-dotnettools.csdevkit
+        vscode-extensions.woberg.godot-dotnet-tools
+        vscode-extensions.geequlim.godot-tools
+      ];
+    })
+
+  ];
+
+  shellHook = ''
+    export TMPDIR=$UIX_SHELL_TMP
+    godot ./project.godot
+  '';
+}

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://chlwedm6ktsex"]
+
+[ext_resource type="Texture2D" uid="uid://i2td0cojb7pj" path="res://assets/domino-base.svg" id="1_5mfbn"]
+[ext_resource type="PackedScene" uid="uid://d28bla7e7sh4u" path="res://objects/dot.tscn" id="2_73y4y"]
+
+[node name="Node2D" type="Node2D"]
+texture_filter = 4
+
+[node name="Domino-base" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_5mfbn")
+
+[node name="Dot" parent="." instance=ExtResource("2_73y4y")]
+position = Vector2(0, -95)
+
+[node name="Dot2" parent="." instance=ExtResource("2_73y4y")]
+position = Vector2(0, 94)

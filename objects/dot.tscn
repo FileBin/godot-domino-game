@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d28bla7e7sh4u"]
+
+[ext_resource type="Texture2D" uid="uid://bmhnj6rjhcnpl" path="res://assets/dot-base.svg" id="1_ta28p"]
+[ext_resource type="Texture2D" uid="uid://cketxpeixfgmv" path="res://assets/dot-shine.svg" id="2_1a17o"]
+
+[node name="Dot" type="Node2D"]
+
+[node name="Dot-base" type="Sprite2D" parent="."]
+modulate = Color(0.162066, 0.162066, 0.162066, 1)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_ta28p")
+
+[node name="Dot-shine" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_1a17o")

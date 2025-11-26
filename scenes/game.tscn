@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnjkxcln4qm0a"]
+
+[ext_resource type="PackedScene" uid="uid://chlwedm6ktsex" path="res://objects/domino-tile.tscn" id="1_uwrxv"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Node2D" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(590, 325)
