@@ -1,17 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://chlwedm6ktsex"]
+[gd_scene load_steps=4 format=3 uid="uid://chlwedm6ktsex"]
 
+[ext_resource type="Script" uid="uid://crf580ngiyacm" path="res://objects/scripts/domino_tile.gd" id="1_005ch"]
 [ext_resource type="Texture2D" uid="uid://i2td0cojb7pj" path="res://assets/domino-base.svg" id="1_5mfbn"]
-[ext_resource type="PackedScene" uid="uid://d28bla7e7sh4u" path="res://objects/dot.tscn" id="2_73y4y"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_73y4y"]
+size = Vector2(190, 378)
+
+[node name="Domino" type="Node2D"]
 texture_filter = 4
+script = ExtResource("1_005ch")
 
-[node name="Domino-base" type="Sprite2D" parent="."]
+[node name="Tile" type="Node2D" parent="."]
+
+[node name="Domino-base" type="Sprite2D" parent="Tile"]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_5mfbn")
 
-[node name="Dot" parent="." instance=ExtResource("2_73y4y")]
-position = Vector2(0, -95)
+[node name="TouchArea" type="Area2D" parent="Tile"]
 
-[node name="Dot2" parent="." instance=ExtResource("2_73y4y")]
-position = Vector2(0, 94)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tile/TouchArea"]
+shape = SubResource("RectangleShape2D_73y4y")
+
+[connection signal="mouse_entered" from="Tile/TouchArea" to="." method="_on_touch_area_mouse_entered"]
+[connection signal="mouse_exited" from="Tile/TouchArea" to="." method="_on_touch_area_mouse_exited"]

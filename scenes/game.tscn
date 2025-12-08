@@ -1,8 +1,71 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnjkxcln4qm0a"]
+[gd_scene load_steps=4 format=3 uid="uid://bnjkxcln4qm0a"]
 
-[ext_resource type="PackedScene" uid="uid://chlwedm6ktsex" path="res://objects/domino-tile.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://d0pl1uwtbn6u0" path="res://objects/scripts/game.gd" id="1_yqjtg"]
+[ext_resource type="Shader" uid="uid://c08t7pxovoqva" path="res://shaders/bg.gdshader" id="2_yqjtg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lnu2h"]
+shader = ExtResource("2_yqjtg")
+shader_parameter/COLOUR_1 = Color(0.35453, 0.318921, 0.282149, 1)
+shader_parameter/COLOUR_2 = Color(0.682491, 0.905886, 0.863023, 1)
+shader_parameter/COLOUR_3 = Color(0.603229, 0.599914, 0.604849, 1)
+shader_parameter/SCALE = 1.16
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_yqjtg")
 
-[node name="Node2D" parent="." instance=ExtResource("1_uwrxv")]
-position = Vector2(590, 325)
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Background"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Background/SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Background" type="CanvasLayer" parent="Background/SubViewportContainer/SubViewport"]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background/SubViewportContainer/SubViewport/Background"]
+material = SubResource("ShaderMaterial_lnu2h")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UI" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Deck" type="HBoxContainer" parent="UI"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -184.0
+offset_top = -170.0
+offset_right = 184.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1

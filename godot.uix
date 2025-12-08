@@ -6,13 +6,23 @@ mkShell {
     dotnetCorePackages.sdk_8_0-bin
     (vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions; [
+        tal7aouy.icons
+        jnoortheen.nix-ide
+        wmaurer.change-case
+        gruntfuggly.todo-tree
         vscode-extensions.ms-dotnettools.csharp
         vscode-extensions.ms-dotnettools.csdevkit
         vscode-extensions.woberg.godot-dotnet-tools
         vscode-extensions.geequlim.godot-tools
+      ] ++ vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "godot-files";
+          publisher = "alfish";
+          version = "0.1.6";
+          hash = "sha256-FFtl1QXSa4nGKFUJh5f3R7AV7hZg59Qs5vBZHgSUCUw=";
+        }
       ];
     })
-
   ];
 
   shellHook = ''

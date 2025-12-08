@@ -14,3 +14,8 @@ config/name="godot-test-project"
 run/main_scene="uid://bnjkxcln4qm0a"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"

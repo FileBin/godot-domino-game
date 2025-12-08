@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://c56vxolywkv6r"]
+
+[ext_resource type="Script" uid="uid://x3ubq6h7f32n" path="res://objects/scripts/2d-node-to-canvas-adapter.gd" id="1_juxiw"]
+[ext_resource type="PackedScene" uid="uid://chlwedm6ktsex" path="res://objects/domino-tile.tscn" id="1_w1y8l"]
+
+[node name="Domino-ui" type="BoxContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.0
+offset_top = -189.0
+offset_right = 95.0
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("1_juxiw")
+initial_size = Vector2(190, 378)
+
+[node name="Domino" parent="Control" instance=ExtResource("1_w1y8l")]
+position = Vector2(95, 189)
+
+[connection signal="mouse_entered" from="Control" to="Control/Domino" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Control" to="Control/Domino" method="_on_mouse_exited"]
