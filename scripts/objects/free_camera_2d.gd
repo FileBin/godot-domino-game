@@ -7,7 +7,7 @@ extends Camera2D
 func _unhandled_input(event):
 	# Panning: Detect Mouse Motion while Middle Mouse Button is pressed
 	if event is InputEventMouseMotion:
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_MIDDLE):
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 			# Move the camera relative to mouse movement and current zoom
 			global_position -= event.relative * (1 / zoom.x)
 

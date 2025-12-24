@@ -15,6 +15,10 @@ run/main_scene="uid://srubd5w5jri7"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GravitySimulation="*res://scripts/utils/gravity_simulation.gd"
+
 [display]
 
 window/stretch/mode="canvas_items"

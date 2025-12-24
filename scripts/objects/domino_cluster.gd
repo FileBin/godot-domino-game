@@ -9,7 +9,9 @@ func add_unit(unit: ClusterUnit):
 	add_mass(unit.global_position, unit.mass)
 
 func init_grid(unit: ClusterUnit):
-	grid_size = unit.tile.data_initialized.connect(init_grid_tile.bind(unit.tile))
+	var slot = unit.tile.data_initialized
+	if not slot.is_connected(init_grid_tile):
+		grid_size = slot.connect(init_grid_tile.bind(unit.tile))
 
 func init_grid_tile(tile: Domino):
 	grid_size = tile.bounds.get_rect().size.x
@@ -24,10 +26,10 @@ func destroy_cluster() -> Array[ClusterUnit]:
 
 func get_tile_value(point: Vector2) -> int:
 	for child in get_children():
-		var domino = child as Domino
-		if not domino:
+		var unit = child as ClusterUnit
+		if not unit:
 			continue
-		var number = domino.get_tile_number_at(point)
+		var number = unit.tile.get_tile_number_at(point)
 
 		if number > 0:
 			return number
@@ -39,13 +41,14 @@ var last_angular_velocity = 0
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	if is_queued_for_deletion(): return
 
-	if state.get_contact_count() > 0:
+	if state.get_contact_count() == 1:
 		var other = state.get_contact_collider_object(0);
 		var point = state.get_contact_collider_position(0);
 
 		var cluster = other as DominoCluster
 
-		if cluster:
+		if cluster and not cluster.is_queued_for_deletion():
+			# replace it with scedule to merger in parent object (to do it not in _integrate_forces)
 			if mass > cluster.mass:
 				merge_other_cluster(point, cluster)
 			else:
@@ -63,8 +66,8 @@ func merge_other_cluster(point: Vector2, cluster: DominoCluster) -> void:
 
 	var total_mass = mass + cluster.mass
 
-	var self_amount = cluster.mass / total_mass 
-	var cluster_amount = mass / total_mass
+	var self_amount = mass / total_mass 
+	var cluster_amount = cluster.mass / total_mass
 
 	rotate_around(self, point, -angle*self_amount)
 	rotate_around(cluster, point, angle*cluster_amount)
@@ -85,8 +88,11 @@ func merge_other_cluster(point: Vector2, cluster: DominoCluster) -> void:
 	for unit in cluster.destroy_cluster():
 		unit.reparent(self)
 
-	linear_velocity = (last_linear_velocity * mass + cluster.linear_velocity * cluster.mass) / total_mass
-	angular_velocity = (last_angular_velocity * mass + cluster.angular_velocity * cluster.mass) / total_mass
+	linear_velocity = (last_linear_velocity * mass + cluster.last_linear_velocity * cluster.mass) / total_mass
+	angular_velocity = (last_angular_velocity * mass + cluster.last_angular_velocity * cluster.mass) / total_mass
+
+	cluster.linear_velocity = linear_velocity
+	cluster.angular_velocity = angular_velocity
 
 	add_mass(cluster.to_global(cluster.center_of_mass), cluster.mass)
 
@@ -120,3 +126,21 @@ func rotate_around(obj: Node2D, point, angle):
 	obj.global_translate(-tStart)
 	obj.transform = obj.transform.rotated(-angle)
 	obj.global_translate(tStart)
+
+func get_gravity_simulation_units() -> Array[GravitySimualtionUnit]:
+	var array: Array[GravitySimualtionUnit] = []
+	for child in get_children():
+		var domino = child as ClusterUnit
+
+		if not domino:
+			continue
+
+		var unit = GravitySimualtionUnit.new()
+
+		unit.cluster_instance_id = get_instance_id()
+		unit.global_position = domino.get_global_center_of_mass()
+		unit.mass = domino.mass
+
+		array.append(unit)
+
+	return array

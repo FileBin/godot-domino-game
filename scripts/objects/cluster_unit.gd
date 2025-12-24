@@ -9,3 +9,6 @@ var tile: Domino
 func _enter_tree() -> void:
 	tile = $Domino
 	data_initialized.emit()
+
+func get_global_center_of_mass() -> Vector2:
+	return tile.global_position
