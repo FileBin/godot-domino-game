@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://srubd5w5jri7"]
+
+[ext_resource type="Script" uid="uid://wi5xcgsfcvrm" path="res://scenes/scripts/simulation.gd" id="1_y5vwh"]
+[ext_resource type="Script" uid="uid://bmq3b3yqko2lb" path="res://scenes/free_camera_2d.gd" id="2_5eski"]
+
+[node name="Simulation" type="Node2D"]
+script = ExtResource("1_y5vwh")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_5eski")

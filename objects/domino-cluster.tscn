@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dn62yl5r6hvd5"]
+
+[ext_resource type="Script" uid="uid://bhu8sog8tpeg5" path="res://objects/scripts/domino_cluster.gd" id="1_w5iwx"]
+
+[node name="RigidBody2D" type="RigidBody2D"]
+process_mode = 3
+gravity_scale = 0.0
+center_of_mass_mode = 1
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_w5iwx")

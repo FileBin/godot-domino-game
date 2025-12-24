@@ -1,0 +1,6 @@
+{
+    "[gdscript]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false,
+    }
+}

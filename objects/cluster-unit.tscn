@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://c26tloegxkffk"]
+
+[ext_resource type="Script" uid="uid://b4ty0x1uiyrbo" path="res://objects/scripts/cluster_unit.gd" id="1_e6xt3"]
+[ext_resource type="PackedScene" uid="uid://chlwedm6ktsex" path="res://objects/domino-tile.tscn" id="1_u7s12"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ymeh6"]
+size = Vector2(189, 378)
+
+[node name="CollisionShape2D" type="CollisionShape2D"]
+position = Vector2(94.5, 189)
+shape = SubResource("RectangleShape2D_ymeh6")
+script = ExtResource("1_e6xt3")
+
+[node name="Domino" parent="." instance=ExtResource("1_u7s12")]

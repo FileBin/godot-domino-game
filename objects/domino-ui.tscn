@@ -18,15 +18,8 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 2
-size_flags_horizontal = 3
 script = ExtResource("1_juxiw")
 initial_size = Vector2(190, 378)
 
-[node name="Domino" parent="Control" instance=ExtResource("1_w1y8l")]
+[node name="Domino" parent="." instance=ExtResource("1_w1y8l")]
 position = Vector2(95, 189)
-
-[connection signal="mouse_entered" from="Control" to="Control/Domino" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Control" to="Control/Domino" method="_on_mouse_exited"]

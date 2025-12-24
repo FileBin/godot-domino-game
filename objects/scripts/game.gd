@@ -32,13 +32,13 @@ func _ready() -> void:
 func draw_card():
 	var tile = deck.pop_front()
 	var domino_ui = TILE_SCENE.instantiate()
-	var domino = domino_ui.get_child(0).get_child(0) as Domino
+	var domino = domino_ui.get_child(0) as Domino # TODO refactor this (ready order to avoid exact tree structure)
 	domino.top_number = tile.top
 	domino.bottom_number = tile.bottom
 	domino.game = self
 	deck_ui.add_child(domino_ui)
 
-func fisher_yates_shuffle(arr):
+func fisher_yates_shuffle(arr: Array):
 	var n = len(arr)
 	for i in range(n - 1, 0, -1): # Iterate from last element down to second
 		var j = randi_range(0, i) # Generate random index between 0 and i
@@ -60,7 +60,7 @@ func _process(delta: float) -> void:
 
 func dominos_on_hand() -> Array[Domino]:
 	var dominos: Array[Domino] = []
-	dominos.assign(deck_ui.get_children().map(func(card): return card.get_child(0).get_child(0)));
+	dominos.assign(deck_ui.get_children().map(func(card): return card.get_child(0))); # TODO refactor this
 	return dominos
 
 func stop_idle_tween() -> Tween:
